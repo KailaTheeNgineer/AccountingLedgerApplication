@@ -16,6 +16,34 @@ public class AccountingLedgerApp {
             if (homeInput.equalsIgnoreCase("D")) {
 
 
+                boolean depositScreen = true;
+                while (depositScreen) {
+
+                    System.out.println("Enter (R) to return Home\n");
+                    Scanner depositScanner = new Scanner(System.in);
+                    System.out.println("Enter your deposit information in the following format:\n" +
+                            "[Description] | vendor | amount");
+                    String input4Deposit = depositScanner.nextLine();
+
+                    // Note to sef: Add an if else statement
+                    // between if and else statement for the valid input
+                    // to be entered into the CSV file
+                    
+                    // if statement for user to go back home
+                    if (input4Deposit.equalsIgnoreCase("R")) {
+                        break; }
+                    // Statement to try again if invalid input is entered
+                     else {
+
+                        System.out.println("Please Select A Valid Option");
+                        depositScreen = true;
+                    }
+
+
+                }
+
+
+
             }
             else if (homeInput.equalsIgnoreCase("P")){
 
@@ -52,7 +80,7 @@ public class AccountingLedgerApp {
 
 
         }
-        // This method allows for user to exit loops
+        // This method allows for user to exit application
     private static void exit() {
     }
 
