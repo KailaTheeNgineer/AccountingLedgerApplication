@@ -50,6 +50,11 @@ public class AccountingLedgerApp {
                             depoWriter.newLine();
                             depoWriter.close();
 
+                            System.out.println("\n\n\nSuccessfully Added Deposit Information!");
+                            System.out.println("Returning Home...\n\n");
+                            // Breaks out of loop to home screen
+                            break;
+
                         } catch (IOException e) {
 
                             e.printStackTrace();
