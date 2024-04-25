@@ -40,7 +40,7 @@ public class AccountingLedgerApp {
                             FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
                             BufferedWriter depoWriter = new BufferedWriter(depoWrite);
                             // Allowing for the date and time of the entry to be entered
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
                             String timestamp = LocalDateTime.now().format(formatter);
 
 
@@ -51,9 +51,20 @@ public class AccountingLedgerApp {
                             depoWriter.close();
 
                             System.out.println("\n\n\nSuccessfully Added Deposit Information!");
-                            System.out.println("Returning Home...\n\n");
-                            // Breaks out of loop to home screen
-                            break;
+                            System.out.println("(R) Return Home\n(D) Enter another Deposit");
+                            Scanner mouse1 = new Scanner(System.in);
+                            String afterDeposit = mouse1.nextLine();
+
+                            if (afterDeposit.equalsIgnoreCase("R")) {
+
+                                // Breaks out of loop to home screen
+                                break;
+
+                            } else if (afterDeposit.equalsIgnoreCase("D")) {
+
+                                // Allows user to input another debit entry
+                                depositScreen = true;
+                            }
 
                         } catch (IOException e) {
 
@@ -103,9 +114,20 @@ public class AccountingLedgerApp {
                             debitWriter.close();
 
                             System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
-                            System.out.println("Returning Home...\n\n");
-                            // Breaks out of loop to home screen
-                            break;
+                            System.out.println("(R) Return Home\n(P) Enter another Debit entry");
+                            Scanner mouse = new Scanner(System.in);
+                            String afterDebit = mouse.nextLine();
+
+                            if (afterDebit.equalsIgnoreCase("R")) {
+
+                                // Breaks out of loop to home screen
+                                break;
+
+                            } else if (afterDebit.equalsIgnoreCase("P")) {
+
+                                // Allows user to input another debit entry
+                                paymentScreen = true;
+                            }
 
                         } catch (IOException e) {
 
