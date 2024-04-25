@@ -1,6 +1,11 @@
 package com.pluralsight;
 
 //importing the scanner for user input
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AccountingLedgerApp {
@@ -22,16 +27,35 @@ public class AccountingLedgerApp {
                     System.out.println("Enter (R) to return Home\n");
                     Scanner depositScanner = new Scanner(System.in);
                     System.out.println("Enter your deposit information in the following format:\n" +
-                            "[Description] | vendor | amount");
+                            "[Description] | Vendor | Amount");
                     String input4Deposit = depositScanner.nextLine();
 
-                    // Note to sef: Add an if else statement
-                    // between if and else statement for the valid input
-                    // to be entered into the CSV file
-                    
                     // if statement for user to go back home
                     if (input4Deposit.equalsIgnoreCase("R")) {
                         break; }
+
+                    else if (input4Deposit.contains("|")) {
+                        try {
+                            // Allowing for system to write to a file and append is saving the info instaed of overwrite
+                            FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
+                            BufferedWriter depoWriter = new BufferedWriter(depoWrite);
+                            // Allowing for the date and time of the entry to be entered
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            String timestamp = LocalDateTime.now().format(formatter);
+
+
+
+                            // New entry for deposits if a valid entry with | is used
+                            depoWriter.write(timestamp + " | Deposit | " + input4Deposit);
+                            depoWriter.newLine();
+                            depoWriter.close();
+
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+                        }
+
+                    }
                     // Statement to try again if invalid input is entered
                      else {
 
