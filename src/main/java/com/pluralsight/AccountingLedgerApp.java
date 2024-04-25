@@ -74,12 +74,55 @@ public class AccountingLedgerApp {
 
 
             }
-            else if (homeInput.equalsIgnoreCase("P")){
+            else if (homeInput.equalsIgnoreCase("P")) {
+                boolean paymentScreen = true;
+
+                while (paymentScreen) {
+                    System.out.println("Enter (R) to return Home\n");
+                    Scanner debitScanner = new Scanner(System.in);
+                    System.out.println("Enter your Debit information in the following format:\n" +
+                            "[Description] | Vendor | Amount");
+                    String input4Debit = debitScanner.nextLine();
+
+                    // if statement for user to go back home from debit screen
+                    if (input4Debit.equalsIgnoreCase("R")) {
+                        break;
+                    } else if (input4Debit.contains("|")) {
+                        try {
+                            // Allowing for system to write to a file and append is saving the info instaed of overwrite
+                            FileWriter debitWrite = new FileWriter("src/main/resources/transactions.csv", true);
+                            BufferedWriter debitWriter = new BufferedWriter(debitWrite);
+                            // Allowing for the date and time of the entry to be entered
+                            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            String timestamp2 = LocalDateTime.now().format(formatter2);
 
 
+                            // New entry for deposits if a valid entry with | is used
+                            debitWriter.write(timestamp2 + " | Deposit | " + input4Debit);
+                            debitWriter.newLine();
+                            debitWriter.close();
 
-            }
-            else if (homeInput.equalsIgnoreCase("L")){
+                            System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
+                            System.out.println("Returning Home...\n\n");
+                            // Breaks out of loop to home screen
+                            break;
+
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+                        }
+
+                    }
+                    // Statement to try again if invalid input is entered
+                    else {
+
+                        System.out.println("Please Select A Valid Option");
+                        paymentScreen = true;
+                    }
+
+
+                }
+            } else if (homeInput.equalsIgnoreCase("L")){
 
 
 
