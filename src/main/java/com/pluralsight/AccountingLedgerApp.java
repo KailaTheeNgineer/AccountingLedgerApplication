@@ -1,9 +1,7 @@
 package com.pluralsight;
 
 //importing the scanner for user input
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -144,10 +142,78 @@ public class AccountingLedgerApp {
 
 
                 }
-            } else if (homeInput.equalsIgnoreCase("L")){
+            } else if (homeInput.equalsIgnoreCase("L")) {
+
+                boolean ledgerScreen = true;
+
+                while (ledgerScreen) {
+
+
+                    System.out.println("Welcome to the Ledger: \n");
+                    System.out.println("(A) Display All Entries \n(D) Display Deposit Entries");
+                    System.out.println("(P) Display Payments \n(R) Reports \n(H) Return Home");
+                    Scanner scanner2 = new Scanner(System.in);
+                    String ledger = scanner2.nextLine();
+                    // if statements to begin the options for ledger screen
+
+                    if (ledger.equalsIgnoreCase("A")) {
+                        boolean runAllEntries = true;
+                        while (runAllEntries) {
+
+                            FileInputStream readAll = null;
+
+                            try {
+
+                                // Reads transactions.csv and displays all entries to user
+                                readAll = new FileInputStream("src/main/resources/transactions.csv");
+                                Scanner readTransactions = new Scanner(readAll);
+                                String allTransactions;
+
+                                while (readTransactions.hasNextLine()) {
+                                    allTransactions = readTransactions.nextLine();
+                                    System.out.println(allTransactions);
+
+                                    readTransactions.close();
+
+                                    System.out.println("Press any key to return to ledger screen");
+                                    Scanner newScanner = new Scanner(System.in);
+                                    String input = newScanner.nextLine();
+                                    if (input.equalsIgnoreCase("R")) {
+                                    break;
+                                        // Interesting piece of code
+                                        // Because it makes sure that any key can return back instead of
+                                        // (R) or (X)
+                                    } else {
+                                        break;
+
+                                    }
+
+                                }
+
+                            } catch (FileNotFoundException e) {
+                                throw new RuntimeException(e);
+
+                            }  break; // goes back to ledger screen if user enters (R)
+                        }
+                    } else if (ledger.equalsIgnoreCase("D")) {
 
 
 
+                    } else if (ledger.equalsIgnoreCase("P")) {
+
+
+
+                    } else if (ledger.equalsIgnoreCase("R")) {
+
+
+
+                    } else { System.out.println("Please Select A Valid Option");
+
+                    }
+
+
+
+                }
             }
             else if (homeInput.equalsIgnoreCase("X")){
 
