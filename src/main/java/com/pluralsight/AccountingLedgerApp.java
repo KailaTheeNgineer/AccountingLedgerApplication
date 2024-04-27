@@ -39,11 +39,13 @@ public class AccountingLedgerApp {
                             BufferedWriter depoWriter = new BufferedWriter(depoWrite);
 
                             // Allowing for the date and time of the entry to be entered
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-                            String timestamp = LocalDateTime.now().format(formatter);
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("hh:mm:ss");
+                            String datestamp22 = LocalDateTime.now().format(formatter);
+                            String timestamp22 = LocalDateTime.now().format(formatter33);
 
                             // New entry for deposits if a valid entry with | is used
-                            depoWriter.write(timestamp + " | Deposit | " + input4Deposit);
+                            depoWriter.write(datestamp22 + " | " + timestamp22 + " | Deposit | " + input4Deposit);
                             depoWriter.newLine();
                             depoWriter.close();
 
@@ -103,13 +105,15 @@ public class AccountingLedgerApp {
                             BufferedWriter debitWriter = new BufferedWriter(debitWrite);
 
                             // Allowing for the date and time of the entry to be entered
-                            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                            String timestamp2 = LocalDateTime.now().format(formatter2);
+                            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("hh:mm:ss");
+                            String datestamp2 = LocalDateTime.now().format(formatter2);
+                            String timestamp2 = LocalDateTime.now().format(formatter3);
 
 
                             // New entry for deposits if a valid entry with | is used
 
-                            debitWriter.write(timestamp2 + " | Deposit | " + input4Debit);
+                            debitWriter.write(datestamp2 + " | " + timestamp2 + " | Debit  | " + input4Debit);
                             debitWriter.newLine();
                             debitWriter.close();
 
@@ -162,44 +166,74 @@ public class AccountingLedgerApp {
                         boolean runAllEntries = true;
                         while (runAllEntries) {
 
-                            FileInputStream readAll = null;
-
                             try {
 
                                 // Reads transactions.csv and displays all entries to user
-                                readAll = new FileInputStream("src/main/resources/transactions.csv");
-                                Scanner readTransactions = new Scanner(readAll);
+                                FileReader readAll = new FileReader("src/main/resources/transactions.csv");
+                                BufferedReader buffReader = new BufferedReader(readAll);
+
                                 String allTransactions;
 
-                                while (readTransactions.hasNextLine()) {
-                                    allTransactions = readTransactions.nextLine();
+                                while ((allTransactions = buffReader.readLine()) != null) {
                                     System.out.println(allTransactions);
 
-                                    readTransactions.close();
+                                } buffReader.close();
 
-                                    System.out.println("Enter any key to return to ledger screen");
-                                    Scanner newScanner = new Scanner(System.in);
-                                    String input = newScanner.nextLine();
-                                    if (input.equalsIgnoreCase("R")) {
+                                System.out.println("Enter any key to return to ledger screen");
+                                Scanner newScanner = new Scanner(System.in);
+                                String input = newScanner.nextLine();
+                                if (input.equalsIgnoreCase("R")) {
                                     break;
-                                        // Interesting piece of code
-                                        // Because the if and else statements are also identical
-                                    } else {
-                                        break;
-
-                                    }
+                                    // Interesting piece of code
+                                    // Because the if and else statements are also identical
+                                } else {
+                                    break;
 
                                 }
 
-                            } catch (FileNotFoundException e) {
-                                throw new RuntimeException(e);
+                            } catch (IOException e) {
+                                e.printStackTrace();
 
                             }  break; // goes back to ledger screen if user enters (R)
                         }
                     } else if (ledger.equalsIgnoreCase("D")) {
                         boolean allDepositEntries = true;
                         while (allDepositEntries) {
+                            try {
+                                FileReader fileReader = new FileReader("src/main/resources/transactions.csv");
+                                BufferedReader bufReader = new BufferedReader(fileReader);
 
+                                String input;
+                                bufReader.readLine();
+
+
+                                while ((input = bufReader.readLine()) != null) {
+                                    String[] split = input.split("\\|");
+                                    String dateandTime = split[0];
+                                    String paymentType = split[1];
+                                    String info = split[2];
+                                    String seller = split[3];
+                                    double payment = Double.parseDouble(split[4]);
+                                    Ledger depositsOnly = new Ledger(dateandTime, paymentType, info, seller, payment);
+                                    // if statement to filter out information for only deposits (payment type)
+                                        if (paymentType.equalsIgnoreCase("Deposits") || (paymentType.equalsIgnoreCase("Deposit"))) {
+
+                                            System.out.println(depositsOnly);
+
+                                        }
+
+
+                                } bufReader.close();
+
+
+
+                            } catch (IOException e) {
+
+                                e.printStackTrace();
+
+
+
+                            }
 
 
 
