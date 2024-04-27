@@ -45,7 +45,7 @@ public class AccountingLedgerApp {
                             String timestamp22 = LocalDateTime.now().format(formatter33);
 
                             // New entry for deposits if a valid entry with | is used
-                            depoWriter.write(datestamp22 + " | " + timestamp22 + " | Deposit | " + input4Deposit);
+                            depoWriter.write(datestamp22 + " | " + timestamp22 + " | " + input4Deposit);
                             depoWriter.newLine();
                             depoWriter.close();
 
@@ -113,7 +113,7 @@ public class AccountingLedgerApp {
 
                             // New entry for deposits if a valid entry with | is used
 
-                            debitWriter.write(datestamp2 + " | " + timestamp2 + " | Debit  | " + input4Debit);
+                            debitWriter.write(datestamp2 + " | " + timestamp2 + " | " + input4Debit);
                             debitWriter.newLine();
                             debitWriter.close();
 
@@ -209,14 +209,15 @@ public class AccountingLedgerApp {
 
                                 while ((input = bufReader.readLine()) != null) {
                                     String[] split = input.split("\\|");
-                                    String dateandTime = split[0];
-                                    String paymentType = split[1];
-                                    String info = split[2];
-                                    String seller = split[3];
-                                    double payment = Double.parseDouble(split[4]);
-                                    Ledger depositsOnly = new Ledger(dateandTime, paymentType, info, seller, payment);
+                                    String date = split[0];
+                                    String time = split[1];
+                                    String paymentType = split[2];
+                                    String info = split[3];
+                                    String seller = split[4];
+                                    double payment = Double.parseDouble(split[5]);
+                                    Ledger depositsOnly = new Ledger(date, time, info, seller, payment);
                                     // if statement to filter out information for only deposits (payment type)
-                                        if (paymentType.equalsIgnoreCase("Deposits") || (paymentType.equalsIgnoreCase("Deposit"))) {
+                                        if (paymentType.equalsIgnoreCase("Deposit")) {
 
                                             System.out.println(depositsOnly);
 
