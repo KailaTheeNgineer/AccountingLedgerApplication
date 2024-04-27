@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-//importing the scanner for user input
+// importing packages for scanner, date, date formatters, and exceptions
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,14 +34,13 @@ public class AccountingLedgerApp {
 
                     else if (input4Deposit.contains("|")) {
                         try {
-                            // Allowing for system to write to a file and append is saving the info instaed of overwrite
+                            // Allowing for system to write to a file and append is saving the info instead of overwriting
                             FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
                             BufferedWriter depoWriter = new BufferedWriter(depoWrite);
+
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
                             String timestamp = LocalDateTime.now().format(formatter);
-
-
 
                             // New entry for deposits if a valid entry with | is used
                             depoWriter.write(timestamp + " | Deposit | " + input4Deposit);
@@ -77,7 +76,6 @@ public class AccountingLedgerApp {
                         depositScreen = true;
                     }
 
-
                 }
 
 
@@ -96,17 +94,21 @@ public class AccountingLedgerApp {
                     // if statement for user to go back home from debit screen
                     if (input4Debit.equalsIgnoreCase("R")) {
                         break;
+                        // Note to self: Not the best way of collecting data, by detecting a "|" character
+                        // Could find a better way to represent this value
                     } else if (input4Debit.contains("|")) {
                         try {
-                            // Allowing for system to write to a file and append is saving the info instaed of overwrite
+                            // Allowing for system to write to a file and append is saving the info instead of overwrite
                             FileWriter debitWrite = new FileWriter("src/main/resources/transactions.csv", true);
                             BufferedWriter debitWriter = new BufferedWriter(debitWrite);
+
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                             String timestamp2 = LocalDateTime.now().format(formatter2);
 
 
                             // New entry for deposits if a valid entry with | is used
+
                             debitWriter.write(timestamp2 + " | Deposit | " + input4Debit);
                             debitWriter.newLine();
                             debitWriter.close();
@@ -118,7 +120,7 @@ public class AccountingLedgerApp {
 
                             if (afterDebit.equalsIgnoreCase("R")) {
 
-                                // Breaks out of loop to home screen
+                                // Breaks out of successful debit entry back to home screen
                                 break;
 
                             } else if (afterDebit.equalsIgnoreCase("P")) {
@@ -133,7 +135,7 @@ public class AccountingLedgerApp {
                         }
 
                     }
-                    // Statement to try again if invalid input is entered
+                    // Ending statement to try again when invalid input on debit info is entered
                     else {
 
                         System.out.println("Please Select A Valid Option");
@@ -154,8 +156,8 @@ public class AccountingLedgerApp {
                     System.out.println("(P) Display Payments \n(R) Reports \n(H) Return Home");
                     Scanner scanner2 = new Scanner(System.in);
                     String ledger = scanner2.nextLine();
-                    // if statements to begin the options for ledger screen
 
+                    // if statements to begin the options for ledger screen
                     if (ledger.equalsIgnoreCase("A")) {
                         boolean runAllEntries = true;
                         while (runAllEntries) {
@@ -175,14 +177,13 @@ public class AccountingLedgerApp {
 
                                     readTransactions.close();
 
-                                    System.out.println("Press any key to return to ledger screen");
+                                    System.out.println("Enter any key to return to ledger screen");
                                     Scanner newScanner = new Scanner(System.in);
                                     String input = newScanner.nextLine();
                                     if (input.equalsIgnoreCase("R")) {
                                     break;
                                         // Interesting piece of code
-                                        // Because it makes sure that any key can return back instead of
-                                        // (R) or (X)
+                                        // Because the if and else statements are also identical
                                     } else {
                                         break;
 
@@ -196,6 +197,15 @@ public class AccountingLedgerApp {
                             }  break; // goes back to ledger screen if user enters (R)
                         }
                     } else if (ledger.equalsIgnoreCase("D")) {
+                        boolean allDepositEntries = true;
+                        while (allDepositEntries) {
+
+
+
+
+
+
+                        }
 
 
 
@@ -204,6 +214,11 @@ public class AccountingLedgerApp {
 
 
                     } else if (ledger.equalsIgnoreCase("R")) {
+
+
+                    } else if (ledger.equalsIgnoreCase("H")) {
+                        // Exit ledger screen and go back to home screen
+                        break;
 
 
 
@@ -231,6 +246,7 @@ public class AccountingLedgerApp {
 
             }
             // used to exit application if the homescreen loop is broken via homeInput
+            // Interesting piece of code #2 because I made an exit method instead of using System.exit(0)
             exit();
 
         }
