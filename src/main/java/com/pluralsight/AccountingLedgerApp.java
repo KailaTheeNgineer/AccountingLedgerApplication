@@ -34,9 +34,14 @@ public class AccountingLedgerApp {
 
                     else if (input4Deposit.contains("|")) {
                         try {
-                            // Allowing for system to write to a file and append is saving the info instead of overwriting
+                            // Allowing for system to write to a file and append is saving the info instead of overwriting for transactions.csv
                             FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
                             BufferedWriter depoWriter = new BufferedWriter(depoWrite);
+
+                            // Allowing for system to write to a file and append is saving the info instead of overwriting for deposits.csv
+                            FileWriter depo2Write = new FileWriter("src/main/resources/deposits.csv", true);
+                            BufferedWriter depo2Writer = new BufferedWriter(depo2Write);
+
 
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -44,10 +49,16 @@ public class AccountingLedgerApp {
                             String datestamp22 = LocalDateTime.now().format(formatter);
                             String timestamp22 = LocalDateTime.now().format(formatter33);
 
-                            // New entry for deposits if a valid entry with | is used
+                            // New entry for deposits if a valid entry with | is used for transactions.csv
                             depoWriter.write(datestamp22 + " | " + timestamp22 + " | " + input4Deposit);
                             depoWriter.newLine();
                             depoWriter.close();
+
+                            // New entry for deposits if a valid entry with | is used for deposits.csv
+                            depo2Writer.write(datestamp22 + " | " + timestamp22 + " | " + input4Deposit);
+                            depo2Writer.newLine();
+                            depo2Writer.close();
+
 
                             System.out.println("\n\n\nSuccessfully Added Deposit Information!");
                             System.out.println("(R) Return Home\n(D) Enter another Deposit");
@@ -100,9 +111,13 @@ public class AccountingLedgerApp {
                         // Could find a better way to represent this value
                     } else if (input4Debit.contains("|")) {
                         try {
-                            // Allowing for system to write to a file and append is saving the info instead of overwrite
+                            // Allowing for system to write to a file and append is saving the info instead of overwrite for transactions.csv
                             FileWriter debitWrite = new FileWriter("src/main/resources/transactions.csv", true);
                             BufferedWriter debitWriter = new BufferedWriter(debitWrite);
+
+                            // Allowing for system to write to a file and append is saving the info instead of overwrite for debits.csv
+                            FileWriter debit2Write = new FileWriter("src/main/resources/debits.csv", true);
+                            BufferedWriter debit2Writer = new BufferedWriter(debit2Write);
 
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -111,11 +126,15 @@ public class AccountingLedgerApp {
                             String timestamp2 = LocalDateTime.now().format(formatter3);
 
 
-                            // New entry for deposits if a valid entry with | is used
-
+                            // New entry for deposits if a valid entry with | is used for transactions.csv
                             debitWriter.write(datestamp2 + " | " + timestamp2 + " | " + input4Debit);
                             debitWriter.newLine();
                             debitWriter.close();
+
+                            // New entry for deposits if a valid entry with | is used for debits.csv
+                            debit2Writer.write(datestamp2 + " | " + timestamp2 + " | " + input4Debit);
+                            debit2Writer.newLine();
+                            debit2Writer.close();
 
                             System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
                             System.out.println("(R) Return Home\n(P) Enter another Debit entry");
@@ -197,46 +216,37 @@ public class AccountingLedgerApp {
                             }  break; // goes back to ledger screen if user enters (R)
                         }
                     } else if (ledger.equalsIgnoreCase("D")) {
+
+                        // While statement to exit out of Deposit entry screen
                         boolean allDepositEntries = true;
-                        while (allDepositEntries) {
-                            try {
-                                FileReader fileReader = new FileReader("src/main/resources/transactions.csv");
-                                BufferedReader bufReader = new BufferedReader(fileReader);
+                        while (allDepositEntries) {try {
 
-                                String input;
-                                bufReader.readLine();
+                            // Reads deposits.csv and displays all entries to user
+                            FileReader readAll = new FileReader("src/main/resources/deposits.csv");
+                            BufferedReader buffReader = new BufferedReader(readAll);
 
+                            String allTransactions;
 
-                                while ((input = bufReader.readLine()) != null) {
-                                    String[] split = input.split("\\|");
-                                    String date = split[0];
-                                    String time = split[1];
-                                    String paymentType = split[2];
-                                    String info = split[3];
-                                    String seller = split[4];
-                                    double payment = Double.parseDouble(split[5]);
-                                    Ledger depositsOnly = new Ledger(date, time, info, seller, payment);
-                                    // if statement to filter out information for only deposits (payment type)
-                                        if (paymentType.equalsIgnoreCase("Deposit")) {
+                            while ((allTransactions = buffReader.readLine()) != null) {
+                                System.out.println(allTransactions);
 
-                                            System.out.println(depositsOnly);
+                            } buffReader.close();
 
-                                        }
+                            System.out.println("Enter any key to return to ledger screen");
+                            Scanner newScanner = new Scanner(System.in);
+                            String input = newScanner.nextLine();
+                            if (input.equalsIgnoreCase("R")) {
+                                break;
 
-
-                                } bufReader.close();
-
-
-
-                            } catch (IOException e) {
-
-                                e.printStackTrace();
-
-
+                            } else {
+                                break;
 
                             }
 
+                        } catch (IOException e) {
+                            e.printStackTrace();
 
+                        } break; // exits out of deposit screen back to ledger screen
 
 
 
@@ -245,6 +255,41 @@ public class AccountingLedgerApp {
 
 
                     } else if (ledger.equalsIgnoreCase("P")) {
+                        boolean debitScreen = true;
+                        // While statement to exit out of debit screen
+                        while (debitScreen) {
+
+                            try {
+
+                            // Reads debits.csv and displays all entries to user
+                            FileReader read1All = new FileReader("src/main/resources/debits.csv");
+                            BufferedReader buffReader = new BufferedReader(read1All);
+
+                            String all1Transactions;
+
+                            while ((all1Transactions = buffReader.readLine()) != null) {
+                                System.out.println(all1Transactions);
+
+                            } buffReader.close();
+
+                            System.out.println("Enter any key to return to ledger screen");
+                            Scanner newScanner = new Scanner(System.in);
+                            String input = newScanner.nextLine();
+                            if (input.equalsIgnoreCase("R")) {
+                                break;
+
+                            } else {
+                                break;
+
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+
+                        }
 
 
 
@@ -291,7 +336,8 @@ public class AccountingLedgerApp {
 
 
         }
-        // This method allows for user to exit application
+
+    // This method allows for user to exit application
     private static void exit() {
     }
 
