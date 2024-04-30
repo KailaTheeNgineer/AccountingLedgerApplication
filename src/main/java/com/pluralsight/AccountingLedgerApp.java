@@ -279,6 +279,39 @@ public class AccountingLedgerApp {
 
                     } else if (ledger.equalsIgnoreCase("R")) {
 
+                        // Boolean to exit from report screen
+                        boolean reportScreen = true;
+                        while (reportScreen) {
+
+                            System.out.println("Select an Option: ");
+                            System.out.println("   1) Month to Date\n   2) Previous Month\n   3) Year to Date\n   4) Previous Year   \n   5) Search vendor");
+                            System.out.println("0) Back");
+                            // Accepting user input for report screen
+                            String reportInput = myScanner.nextLine();
+
+
+                            switch (reportInput) {
+                                case "1":
+                                    break;
+                                case "2":
+                                    break;
+                                case "3":
+                                    break;
+                                case "4":
+                                    break;
+                                case "5":
+                                    break;
+                                case "0":
+                                    break;
+                                default:
+                                    System.out.println("Select a Valid option");
+                                    break;
+
+
+                            }
+                        }
+
+
 
                     } else if (ledger.equalsIgnoreCase("H")) {
                         // Exit ledger screen and go back to home screen
