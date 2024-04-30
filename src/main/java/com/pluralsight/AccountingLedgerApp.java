@@ -20,7 +20,10 @@ public class AccountingLedgerApp {
         deposits.add(id2);
 
         ArrayList<LedgerTransact> debits = new ArrayList<LedgerTransact>();
-
+        LedgerTransact id3 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
+        LedgerTransact id4 = new LedgerTransact("2024/04/28", "04:36:18", "Food for Thought", "Amazon", -7.77);
+        debits.add(id3);
+        debits.add(id4);
 
         // While loop that initiates the ability to close out of the entire app
         boolean homescreen = true;
@@ -257,7 +260,20 @@ public class AccountingLedgerApp {
                     } else if (ledger.equalsIgnoreCase("P")) {
                         boolean debitScreen = true;
                         // While statement to exit out of debit screen
-                        while (debitScreen) {
+                        while (debitScreen) { for (int i = 0; i < debits.size(); i++) {
+                            System.out.print(debits.get(i).getDate() + " | " + debits.get(i).getTime()
+                                    + " | " + debits.get(i).getDescription() + " | " + debits.get(i).getVendor() + " | ");
+                            System.out.printf("$%.2f\n", debits.get(i).getAmount());
+                        }
+                            System.out.println("Enter any key to return to ledger screen: ");
+                            String newinput = myScanner.nextLine();
+                            if (newinput.equalsIgnoreCase("R")) {
+                                break;
+                            } else {
+
+                                break;
+
+                            }
                         }
 
 
@@ -299,10 +315,6 @@ public class AccountingLedgerApp {
 
         }
 
-
-
-
-
         }
 
 
@@ -313,20 +325,6 @@ public class AccountingLedgerApp {
     // This method returns to the homescreen by making the homescreen variable true
     private static void homescreen() {
     }
-
-
-    // Method to print all deposit entries
-//    static void printAllDeposits(depo) {
-//        for (LedgerTransact d : depositList) {
-//            if (d.getAmount() >= 0) {
-//                System.out.println(d.getDate() + " | " + d.getTime() + " | " + d.getDescription() + " | "
-//                        + d.getVendor() + " | ");
-//                System.out.printf("$%.2f", d.getAmount());
-//                System.out.println("\n");
-//            }
-       // }
-
-  //  }
 
     }
 
