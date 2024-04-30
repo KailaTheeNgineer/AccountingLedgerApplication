@@ -10,20 +10,33 @@ import java.util.Scanner;
 public class AccountingLedgerApp {
     public static void main(String[] args) {
 
-        // Creating the array to access later in ledger
+        // Creating the array to access later in ledger for deposits only
         ArrayList<LedgerTransact> deposits = new ArrayList<>();
         // Creating pre-saved object info for deposits
         LedgerTransact id1 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
         LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
-        // Adding the objects to the array
+        // Adding the objects to the deposits array
         deposits.add(id1);
         deposits.add(id2);
 
+        // Creating the array to access later in ledger for debits only
         ArrayList<LedgerTransact> debits = new ArrayList<LedgerTransact>();
         LedgerTransact id3 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
         LedgerTransact id4 = new LedgerTransact("2024/04/28", "04:36:18", "Food for Thought", "Amazon", -7.77);
         debits.add(id3);
         debits.add(id4);
+
+        // Creating the array to access later in ledger for all transactions
+        ArrayList<LedgerTransact> allTransactions = new ArrayList<>();
+        LedgerTransact id11 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
+        LedgerTransact id22 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
+        LedgerTransact id33 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
+        LedgerTransact id44 = new LedgerTransact("2024/04/28", "04:36:18", "Food for Thought", "Amazon", -7.77);
+        // Adding the objects to the deposits array
+        deposits.add(id11);
+        deposits.add(id22);
+        deposits.add(id33);
+        deposits.add(id44);
 
         // While loop that initiates the ability to close out of the entire app
         boolean homescreen = true;
@@ -78,8 +91,10 @@ public class AccountingLedgerApp {
                             // Creating an object out of the new information
                             LedgerTransact inputDeposit = new LedgerTransact(datestamp22, timestamp22, description, vendor, amount);
 
-                            // Adding the object to the array
+                            // Adding the object to the deposit array
                             deposits.add(inputDeposit);
+                            // Adding it to allTransactions array
+                            allTransactions.add(inputDeposit);
 
 
                             System.out.println("\n\n\nSuccessfully Added Deposit Information!");
@@ -148,6 +163,20 @@ public class AccountingLedgerApp {
                             debitWriter.write(datestamp2 + " | " + timestamp2 + " | " + input4Debit);
                             debitWriter.newLine();
                             debitWriter.close();
+
+                            // Parsing information in input4debit to add to object
+                            String[] splitdebit = input4Debit.split("\\|");
+                            String description = splitdebit[0];
+                            String vendor = splitdebit[1];
+                            double amount = Double.parseDouble(splitdebit[2]);
+
+                            // Creating an object out of the new information
+                            LedgerTransact inputDebit = new LedgerTransact(datestamp2, timestamp2, description, vendor, amount);
+
+                            // Adding the object to the debit array
+                            deposits.add(inputDebit);
+                            // Adding it to allTransactions array
+                            allTransactions.add(inputDebit);
 
 
                             System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
