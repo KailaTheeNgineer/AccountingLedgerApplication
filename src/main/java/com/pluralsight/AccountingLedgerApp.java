@@ -16,19 +16,25 @@ public class AccountingLedgerApp {
         LedgerTransact id1 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
         LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
         LedgerTransact id6 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
+        LedgerTransact id8 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
         // Adding the objects to the deposits array
         deposits.add(id1);
         deposits.add(id2);
         deposits.add(id6);
+        deposits.add(id8);
 
         // Creating the array to access later in ledger for debits only
         ArrayList<LedgerTransact> debits = new ArrayList<LedgerTransact>();
         LedgerTransact id3 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
         LedgerTransact id4 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
         LedgerTransact id5 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
+        LedgerTransact id7 = new LedgerTransact("2023/02/31", "16:34:12", "Classic Handbag", "Chanel", -567.89);
+        LedgerTransact id9 = new LedgerTransact("2024/05/02", "07:02:33", "Lipgloss", "Fenty", -20.43);
         debits.add(id3);
         debits.add(id4);
         debits.add(id5);
+        debits.add(id7);
+        debits.add(id9);
 
 
         // Creating the array to access later in ledger for all transactions
@@ -39,6 +45,9 @@ public class AccountingLedgerApp {
         LedgerTransact id44 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
         LedgerTransact id55 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
         LedgerTransact id66 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
+        LedgerTransact id77 = new LedgerTransact("2023/02/31", "16:34:12", "Classic Handbag", "Chanel", -567.89);
+        LedgerTransact id88 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
+        LedgerTransact id99 = new LedgerTransact("2024/05/02", "07:02:33", "Lipgloss", "Fenty", -20.43);
         // Adding the objects to the allTransactions array
         allTransactionsList.add(id11);
         allTransactionsList.add(id22);
@@ -46,6 +55,9 @@ public class AccountingLedgerApp {
         allTransactionsList.add(id44);
         allTransactionsList.add(id55);
         allTransactionsList.add(id66);
+        allTransactionsList.add(id77);
+        allTransactionsList.add(id88);
+        allTransactionsList.add(id99);
 
 
 
@@ -82,7 +94,7 @@ public class AccountingLedgerApp {
 
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                            DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("hh:mm:ss");
+                            DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("HH:mm:ss");
                             String datestamp22 = LocalDateTime.now().format(formatter);
                             String timestamp22 = LocalDateTime.now().format(formatter33);
 
@@ -162,7 +174,7 @@ public class AccountingLedgerApp {
 
                             // Allowing for the date and time of the entry to be entered
                             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("hh:mm:ss");
+                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("HH:mm:ss");
                             String datestamp2 = LocalDateTime.now().format(formatter2);
                             String timestamp2 = LocalDateTime.now().format(formatter3);
 
@@ -348,19 +360,61 @@ public class AccountingLedgerApp {
                                     // look through comparison to bring up current month's values
                                     if (transactionDate.getMonthValue() == nowDate.getMonthValue()) {
 
+                                        // Sorts it by desc order before displaying
+                                        Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+                                            public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                                return o2.getDate().compareTo(o1.getDate());
+                                            }
+                                        });
+
                                         System.out.print(monthTransact.getDate() + " | " + monthTransact.getTime()
                                                 + " | " + monthTransact.getDescription() + " | " + monthTransact.getVendor() + " | ");
                                         System.out.printf("$%.2f\n", monthTransact.getAmount());
+                                        // Statement to exit loop back to report screen
+                                        System.out.println("Enter any key to go back");
+                                        Scanner mouse = new Scanner(System.in);
+                                        String finishedInput = mouse.nextLine();
+                                        if (finishedInput.equalsIgnoreCase("R")) {
+                                            break;
+                                        } else {
+                                            break;
+                                        }
+
                                     }
-
-
 
                             }
 
 
 
 
-                            } else if (reportInput.equals("2")) {
+                            } else if (reportInput.equals("2")) { for (LedgerTransact previousmnthTransact : allTransactionsList) {
+
+
+
+                                // Creating local date variables so that I can grab information from previous months
+
+                                LocalDate currentMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                                LocalDate nowDate = LocalDate.now();
+
+
+                                // look through comparison to bring up current month's values, subtracting 1 to get previous month
+                                if (currentMonth.getMonthValue() == nowDate.getMonthValue()-1) {
+
+                                    System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
+                                            + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
+                                    System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
+                                    // Statement to exit loop back to report screen
+                                    System.out.println("Enter any key to go back");
+                                    Scanner mouse = new Scanner(System.in);
+                                    String finishedInput = mouse.nextLine();
+                                    if (finishedInput.equalsIgnoreCase("R")) {
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                            }
 
 
                             } else if (reportInput.equals("3")) {
