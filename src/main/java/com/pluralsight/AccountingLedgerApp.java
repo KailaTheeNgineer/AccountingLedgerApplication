@@ -236,37 +236,31 @@ public class AccountingLedgerApp {
                         boolean runAllEntries = true;
                         while (runAllEntries) {
 
-                            try {
+                            // Sorts it by desc order before displaying
+                            Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+                                public int compare(LedgerTransact o1, LedgerTransact o2) {
 
-                                // Reads transactions.csv and displays all entries to user
-                                FileReader readAll = new FileReader("src/main/resources/transactions.csv");
-                                BufferedReader buffReader = new BufferedReader(readAll);
-
-                                String allTransactions;
-
-                                while ((allTransactions = buffReader.readLine()) != null) {
-                                    System.out.println(allTransactions);
-
+                                    return o2.getDate().compareTo(o1.getDate());
                                 }
-                                buffReader.close();
+                            });
+                            for (int i = 0; i < allTransactionsList.size(); i++) {
 
-                                System.out.println("Enter any key to return to ledger screen");
-                                Scanner newScanner = new Scanner(System.in);
-                                String input = newScanner.nextLine();
-                                if (input.equalsIgnoreCase("R")) {
-                                    break;
-                                    // Interesting piece of code
-                                    // Because the if and else statements are also identical
-                                } else {
-                                    break;
+                                System.out.print(allTransactionsList.get(i).getDate() + " | " + allTransactionsList.get(i).getTime()
+                                        + " | " + allTransactionsList.get(i).getDescription() + " | " + allTransactionsList.get(i).getVendor() + " | ");
+                                System.out.printf("$%.2f\n", allTransactionsList.get(i).getAmount());
+                            }
 
-                                }
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            System.out.println("Enter any key to return to ledger screen");
+                            Scanner newScanner = new Scanner(System.in);
+                            String input = newScanner.nextLine();
+                            if (input.equalsIgnoreCase("R")) {
+                                break;
+                                // Interesting piece of code
+                                // Because the if and else statements are also identical
+                            } else {
+                                break;
 
                             }
-                            break; // goes back to ledger screen if user enters (R)
                         }
                     } else if (ledger.equalsIgnoreCase("D")) {
 
@@ -313,9 +307,6 @@ public class AccountingLedgerApp {
                                 }
                             });
                             for (int i = 0; i < debits.size(); i++) {
-                                // Sort the array so it displays tje date first
-
-
                                 System.out.print(debits.get(i).getDate() + " | " + debits.get(i).getTime()
                                         + " | " + debits.get(i).getDescription() + " | " + debits.get(i).getVendor() + " | ");
                                 System.out.printf("$%.2f\n", debits.get(i).getAmount());
