@@ -388,22 +388,25 @@ public class AccountingLedgerApp {
 
 
 
-                            } else if (reportInput.equals("2")) { for (LedgerTransact previousmnthTransact : allTransactionsList) {
+                            } else if (reportInput.equals("2")) {
+
+                                for (LedgerTransact previousmnthTransact : allTransactionsList) {
+
+                                    // Creating local date variables so that I can grab information from previous months
+
+                                    LocalDate transactionMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                                    LocalDate nowDate = LocalDate.now();
 
 
+                                    // look through comparison to bring up current month's values, subtracting 1 to get previous month
+                                    if (transactionMonth.getMonthValue() == (nowDate.getMonthValue() - 1)) {
 
-                                // Creating local date variables so that I can grab information from previous months
+                                        System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
+                                                + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
+                                        System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
 
-                                LocalDate currentMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                                LocalDate nowDate = LocalDate.now();
-
-
-                                // look through comparison to bring up current month's values, subtracting 1 to get previous month
-                                if (currentMonth.getMonthValue() == nowDate.getMonthValue()-1) {
-
-                                    System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
-                                            + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
-                                    System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
+                                    }
+                                }
                                     // Statement to exit loop back to report screen
                                     System.out.println("Enter any key to go back");
                                     Scanner mouse = new Scanner(System.in);
@@ -413,8 +416,8 @@ public class AccountingLedgerApp {
                                     } else {
                                         break;
                                     }
-                                }
-                            }
+
+
 
 
                             } else if (reportInput.equals("3")) {
