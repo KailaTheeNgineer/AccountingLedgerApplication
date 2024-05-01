@@ -347,7 +347,7 @@ public class AccountingLedgerApp {
                             // Accepting user input for report screen
                             String reportInput = myScanner.nextLine();
 
-
+                            // Month to date screen
                             if (reportInput.equals("1")) {
                                 // For loop to access month-date entries
                                 for (LedgerTransact monthTransact : allTransactionsList) {
@@ -383,11 +383,9 @@ public class AccountingLedgerApp {
 
                                     }
 
-                            }
+                                }
 
-
-
-
+                                // Previous month screen
                             } else if (reportInput.equals("2")) {
 
                                 for (LedgerTransact previousmnthTransact : allTransactionsList) {
@@ -406,7 +404,8 @@ public class AccountingLedgerApp {
                                         System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
 
                                     }
-                                }
+                                    }
+
                                     // Statement to exit loop back to report screen
                                     System.out.println("Enter any key to go back");
                                     Scanner mouse = new Scanner(System.in);
@@ -420,10 +419,18 @@ public class AccountingLedgerApp {
 
 
 
+                                    // Year to Date Screen
                             } else if (reportInput.equals("3")) {
+                                Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+                                    public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                        return o2.getDate().compareTo(o1.getDate());
+                                    }
+                                });
 
                                 // For loop to access previous year entries
                                 for (LedgerTransact prevyearTransact : allTransactionsList) {
+
 
                                     // Creating local date variables so that I can grab information from specific months
 
@@ -449,8 +456,16 @@ public class AccountingLedgerApp {
                                     break;
                                 }
 
+                                // Previous year Screen
+                            } else if (reportInput.equals("4")) {
+                                Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+                                    public int compare(LedgerTransact o1, LedgerTransact o2) {
 
-                            } else if (reportInput.equals("4")) { for (LedgerTransact previousmnthTransact : allTransactionsList) {
+                                        return o2.getDate().compareTo(o1.getDate());
+                                    }
+                                });
+
+                                for (LedgerTransact previousmnthTransact : allTransactionsList) {
 
                                 // Creating local date variables so that I can grab information from previous months
 
@@ -479,9 +494,13 @@ public class AccountingLedgerApp {
 
 
                             } else if (reportInput.equals("5")) {
+                                /* compare user input with if statment after parsing alltransactions array lists
+
+                                 */
 
 
                             } else if (reportInput.equals("0")) {
+                                break;
 
 
                             } else {
