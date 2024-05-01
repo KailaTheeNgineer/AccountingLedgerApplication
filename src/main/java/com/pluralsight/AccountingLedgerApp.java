@@ -2,41 +2,52 @@ package com.pluralsight;
 
 // importing packages for scanner, date, date formatters, and exceptions
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class AccountingLedgerApp {
     public static void main(String[] args) {
 
         // Creating the array to access later in ledger for deposits only
         ArrayList<LedgerTransact> deposits = new ArrayList<>();
-        // Creating pre-saved object info for deposits
+        // Creating pre-saved object info for deposits only
         LedgerTransact id1 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
         LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
+        LedgerTransact id6 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
         // Adding the objects to the deposits array
         deposits.add(id1);
         deposits.add(id2);
+        deposits.add(id6);
 
         // Creating the array to access later in ledger for debits only
         ArrayList<LedgerTransact> debits = new ArrayList<LedgerTransact>();
         LedgerTransact id3 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
-        LedgerTransact id4 = new LedgerTransact("2024/04/28", "04:36:18", "Food for Thought", "Amazon", -7.77);
+        LedgerTransact id4 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
+        LedgerTransact id5 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
         debits.add(id3);
         debits.add(id4);
+        debits.add(id5);
+
 
         // Creating the array to access later in ledger for all transactions
-        ArrayList<LedgerTransact> allTransactions = new ArrayList<>();
+        ArrayList<LedgerTransact> allTransactionsList = new ArrayList<>();
         LedgerTransact id11 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
         LedgerTransact id22 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
         LedgerTransact id33 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
-        LedgerTransact id44 = new LedgerTransact("2024/04/28", "04:36:18", "Food for Thought", "Amazon", -7.77);
-        // Adding the objects to the deposits array
-        deposits.add(id11);
-        deposits.add(id22);
-        deposits.add(id33);
-        deposits.add(id44);
+        LedgerTransact id44 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
+        LedgerTransact id55 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
+        LedgerTransact id66 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
+        // Adding the objects to the allTransactions array
+        allTransactionsList.add(id11);
+        allTransactionsList.add(id22);
+        allTransactionsList.add(id33);
+        allTransactionsList.add(id44);
+        allTransactionsList.add(id55);
+        allTransactionsList.add(id66);
+
+
 
         // While loop that initiates the ability to close out of the entire app
         boolean homescreen = true;
@@ -61,9 +72,8 @@ public class AccountingLedgerApp {
 
                     // if statement for user to go back home
                     if (input4Deposit.equalsIgnoreCase("R")) {
-                        break; }
-
-                    else if (input4Deposit.contains("|")) {
+                        break;
+                    } else if (input4Deposit.contains("|")) {
                         try {
                             // Allowing for system to write to a file and append is saving the info instead of overwriting for transactions.csv
                             FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
@@ -94,7 +104,7 @@ public class AccountingLedgerApp {
                             // Adding the object to the deposit array
                             deposits.add(inputDeposit);
                             // Adding it to allTransactions array
-                            allTransactions.add(inputDeposit);
+                            allTransactionsList.add(inputDeposit);
 
 
                             System.out.println("\n\n\nSuccessfully Added Deposit Information!");
@@ -121,7 +131,7 @@ public class AccountingLedgerApp {
 
                     }
                     // Statement to try again if invalid input is entered
-                     else {
+                    else {
 
                         System.out.println("Please Select A Valid Option");
                         depositScreen = true;
@@ -130,9 +140,7 @@ public class AccountingLedgerApp {
                 }
 
 
-
-            }
-            else if (homeInput.equalsIgnoreCase("P")) {
+            } else if (homeInput.equalsIgnoreCase("P")) {
                 boolean paymentScreen = true;
 
                 while (paymentScreen) {
@@ -176,7 +184,7 @@ public class AccountingLedgerApp {
                             // Adding the object to the debit array
                             deposits.add(inputDebit);
                             // Adding it to allTransactions array
-                            allTransactions.add(inputDebit);
+                            allTransactionsList.add(inputDebit);
 
 
                             System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
@@ -265,15 +273,24 @@ public class AccountingLedgerApp {
                         // While statement to exit out of Deposit entry screen
                         boolean allDepositEntries = true;
                         while (allDepositEntries) {
+
+                            // Sorts it by desc order before displaying
+                            Collections.sort(deposits, new Comparator<LedgerTransact>() {
+                                public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                    return o2.getDate().compareTo(o1.getDate());
+                                }
+                            });
                             for (int i = 0; i < deposits.size(); i++) {
+
                                 System.out.print(deposits.get(i).getDate() + " | " + deposits.get(i).getTime()
-                                + " | " + deposits.get(i).getDescription() + " | " + deposits.get(i).getVendor() + " | ");
+                                        + " | " + deposits.get(i).getDescription() + " | " + deposits.get(i).getVendor() + " | ");
                                 System.out.printf("$%.2f\n", deposits.get(i).getAmount());
                             }
                             System.out.println("Enter any key to return to ledger screen: ");
                             String newinput = myScanner.nextLine();
-                                if (newinput.equalsIgnoreCase("R")) {
-                                    break;
+                            if (newinput.equalsIgnoreCase("R")) {
+                                break;
                             } else {
 
                                 break;
@@ -281,19 +298,28 @@ public class AccountingLedgerApp {
                             }
 
 
-
                         }
-
 
 
                     } else if (ledger.equalsIgnoreCase("P")) {
                         boolean debitScreen = true;
                         // While statement to exit out of debit screen
-                        while (debitScreen) { for (int i = 0; i < debits.size(); i++) {
-                            System.out.print(debits.get(i).getDate() + " | " + debits.get(i).getTime()
-                                    + " | " + debits.get(i).getDescription() + " | " + debits.get(i).getVendor() + " | ");
-                            System.out.printf("$%.2f\n", debits.get(i).getAmount());
-                        }
+                        while (debitScreen) {
+                            // Sorts it by desc order before displaying
+                            Collections.sort(debits, new Comparator<LedgerTransact>() {
+                                public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                    return o2.getDate().compareTo(o1.getDate());
+                                }
+                            });
+                            for (int i = 0; i < debits.size(); i++) {
+                                // Sort the array so it displays tje date first
+
+
+                                System.out.print(debits.get(i).getDate() + " | " + debits.get(i).getTime()
+                                        + " | " + debits.get(i).getDescription() + " | " + debits.get(i).getVendor() + " | ");
+                                System.out.printf("$%.2f\n", debits.get(i).getAmount());
+                            }
                             System.out.println("Enter any key to return to ledger screen: ");
                             String newinput = myScanner.nextLine();
                             if (newinput.equalsIgnoreCase("R")) {
@@ -312,34 +338,60 @@ public class AccountingLedgerApp {
                         boolean reportScreen = true;
                         while (reportScreen) {
 
-                            System.out.println("Select an Option: ");
+                            System.out.println("Generate a Report: ");
                             System.out.println("   1) Month to Date\n   2) Previous Month\n   3) Year to Date\n   4) Previous Year   \n   5) Search vendor");
                             System.out.println("0) Back");
                             // Accepting user input for report screen
                             String reportInput = myScanner.nextLine();
 
 
-                            switch (reportInput) {
-                                case "1":
-                                    break;
-                                case "2":
-                                    break;
-                                case "3":
-                                    break;
-                                case "4":
-                                    break;
-                                case "5":
-                                    break;
-                                case "0":
-                                    break;
-                                default:
-                                    System.out.println("Select a Valid option");
-                                    break;
+                            if (reportInput.equals("1")) {
+                                // For loop to access month-date entries
+                                for (LedgerTransact monthTransact : allTransactionsList) {
+
+                                    /* Creating local date variables so that I can grab information from specific months
+                                    Not working yet but it prints all the allTransaction array values */
+                                    LocalDate transactionDate = LocalDate.parse(monthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                                    LocalDate nowDate = LocalDate.now();
+
+                                    // look through comparison to bring up current month's values
+                                    if (transactionDate.getMonthValue() == nowDate.getMonthValue()) {
+
+                                        for (int i = 0; i < allTransactionsList.size(); i++) {
+
+
+                                            System.out.print(allTransactionsList.get(i).getDate() + " | " + allTransactionsList.get(i).getTime()
+                                                    + " | " + allTransactionsList.get(i).getDescription() + " | " + allTransactionsList.get(i).getVendor() + " | ");
+                                            System.out.printf("$%.2f\n", allTransactionsList.get(i).getAmount());
+                                        }
+
+                                    }
+
+                            }
+
+
+
+
+                            } else if (reportInput.equals("2")) {
+
+
+                            } else if (reportInput.equals("3")) {
+
+
+                            } else if (reportInput.equals("4")) {
+
+
+                            } else if (reportInput.equals("5")) {
+
+
+                            } else if (reportInput.equals("0")) {
+
+
+                            } else {
 
 
                             }
                         }
-
 
 
                     } else if (ledger.equalsIgnoreCase("H")) {
@@ -347,24 +399,20 @@ public class AccountingLedgerApp {
                         break;
 
 
-
-                    } else { System.out.println("Please Select A Valid Option");
+                    } else {
+                        System.out.println("Please Select A Valid Option");
 
                     }
 
 
-
                 }
-            }
-            else if (homeInput.equalsIgnoreCase("X")){
+            } else if (homeInput.equalsIgnoreCase("X")) {
 
                 // Command to exit the application
                 break;
 
 
-
-            }
-            else {
+            } else {
                 // if a valid option isn't chosen, System alerts the user, then runs homescreen()
                 // so they can try again
                 System.out.println("Please Select A Valid Option");
@@ -377,7 +425,8 @@ public class AccountingLedgerApp {
 
         }
 
-        }
+
+    }
 
 
     // This method allows for user to exit application
@@ -388,8 +437,4 @@ public class AccountingLedgerApp {
     private static void homescreen() {
     }
 
-    }
-
-
-
-
+}
