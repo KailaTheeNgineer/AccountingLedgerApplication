@@ -340,23 +340,20 @@ public class AccountingLedgerApp {
                                 // For loop to access month-date entries
                                 for (LedgerTransact monthTransact : allTransactionsList) {
 
-                                    /* Creating local date variables so that I can grab information from specific months
-                                    Not working yet but it prints all the allTransaction array values */
+                                    // Creating local date variables so that I can grab information from specific months
+
                                     LocalDate transactionDate = LocalDate.parse(monthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                                     LocalDate nowDate = LocalDate.now();
 
                                     // look through comparison to bring up current month's values
                                     if (transactionDate.getMonthValue() == nowDate.getMonthValue()) {
 
-                                        for (int i = 0; i < allTransactionsList.size(); i++) {
-
-
-                                            System.out.print(allTransactionsList.get(i).getDate() + " | " + allTransactionsList.get(i).getTime()
-                                                    + " | " + allTransactionsList.get(i).getDescription() + " | " + allTransactionsList.get(i).getVendor() + " | ");
-                                            System.out.printf("$%.2f\n", allTransactionsList.get(i).getAmount());
-                                        }
-
+                                        System.out.print(monthTransact.getDate() + " | " + monthTransact.getTime()
+                                                + " | " + monthTransact.getDescription() + " | " + monthTransact.getVendor() + " | ");
+                                        System.out.printf("$%.2f\n", monthTransact.getAmount());
                                     }
+
+
 
                             }
 
