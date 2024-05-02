@@ -1,7 +1,7 @@
 # Accounting Ledger App
-This app is designed to keep track of a user's transactions and records the information. 
-After the user enters a transaction, it will be stored in a ledger. Through the `Ledger` screen, 
-user has access to screens that reveal data on all Transactions, only payments, and only deposits.
+This app is designed to keep track of a user's transactions and records the information. After the user enters a 
+transaction, it will be stored in a ledger. Through the `Ledger` screen, user has access to several screens that 
+reveal data. There is an option to view all `Transactions`, only `Payments`, only `Deposits`, or to view `Reports`.
 In the `Reports` screen, Users can view monthly or annual reports or search for transactions from a specific vendor.
 
 
@@ -9,7 +9,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Home
 ![Ledger Home](src/main/resources/LedgerHome.png)
-> *From the home screen, the user can select an option to view the ledger, add a deposit, or payment.*
+> *From the home screen, user can select an option to view the ledger, add a deposit, or payment.*
 
 
 
@@ -17,7 +17,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Ledger
 ![Ledger Screen](src/main/resources/LedgerScreen.png)
-> *The ledger screen allows for the user to view all transactions, only payments, only deposits, or check reports for the ledger.*
+> *The ledger screen allows for user to view all transactions, only payments, only deposits, or check reports for the ledger.*
 
 ![Display All Entries](src/main/resources/DisplayAllEntriesScreen.png)
 > *The display for all entries reveals all the transactions that have been successfully completed.*
@@ -34,7 +34,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Reports
 ![Display Report Screen](src/main/resources/ReportScreen.png)
-> *This screen allows for the user to generate a report or search for transactions from a specific vendor*
+> *This screen allows for user to generate a report or search for transactions from a specific vendor*
 
 ![Month to Date](src/main/resources/MonthtoDateReport.png)
 > *Reveals the entries up to date with the current month*
@@ -57,7 +57,8 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Project Summary
 
-:bulb: **Interesting Piece of Code:** The all-exit loop.
+
+:bulb: **Interesting Piece of Code:** The *all-exit* loop.
 
 `if (input.equalsIgnoreCase("R")) {
 break;
