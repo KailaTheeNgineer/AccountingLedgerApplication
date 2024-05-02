@@ -5,10 +5,10 @@ user has access to screens that reveal data on all Transactions, only payments, 
 In the `Reports` screen, Users can view monthly or annual reports or search for transactions from a specific vendor.
 
 ## Table of Contents
-- [Home Screen] (## Home)
-- [Ledger Screen] (## Ledger)
-- [Reports Screen] (## Reports)
-- [Summary] (## Project Summary)
+- [Home Screen] (#Home)
+- [Ledger Screen] (#Ledger)
+- [Reports Screen] (#Reports)
+- [Summary] (#Project-Summary)
 
 ### Home
 ![Ledger Home](src/main/resources/LedgerHome.png)
