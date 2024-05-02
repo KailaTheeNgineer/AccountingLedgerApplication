@@ -14,7 +14,7 @@ public class AccountingLedgerApp {
         ArrayList<LedgerTransact> deposits = new ArrayList<>();
         // Creating pre-saved object info for deposits only
         LedgerTransact id1 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
-        LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
+        LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Money", "Cashapp", 150);
         LedgerTransact id6 = new LedgerTransact("2024/05/02", "06:35:35", "Youtube", "Adsense", 3000);
         LedgerTransact id8 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
         // Adding the objects to the deposits array
@@ -40,7 +40,7 @@ public class AccountingLedgerApp {
         // Creating the array to access later in ledger for all transactions
         ArrayList<LedgerTransact> allTransactionsList = new ArrayList<>();
         LedgerTransact id11 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
-        LedgerTransact id22 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
+        LedgerTransact id22 = new LedgerTransact("2024/04/28", "04:35:35", "Money", "Cashapp", 150);
         LedgerTransact id33 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
         LedgerTransact id44 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
         LedgerTransact id55 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
@@ -177,13 +177,13 @@ public class AccountingLedgerApp {
                         LedgerTransact inputDebit = new LedgerTransact(datestamp2, timestamp2, transactionDescrInput, vendorInput, debitInput);
 
                         // Adding the object to the debit array
-                        deposits.add(inputDebit);
+                        debits.add(inputDebit);
                         // Adding it to allTransactions array
                         allTransactionsList.add(inputDebit);
 
 
                         System.out.println("\n\n\nTransaction Completed. Thank You!");
-                        System.out.println("(R) Return Home\n(P) Enter another Debit entry");
+                        System.out.println("(R) Return Home\n(P) Enter another Payment");
                         Scanner mouse = new Scanner(System.in);
                         String afterDebit = mouse.nextLine();
 
@@ -231,8 +231,10 @@ public class AccountingLedgerApp {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
 
                                     return o2.getDate().compareTo(o1.getDate());
+
                                 }
                             });
+
                             for (int i = 0; i < allTransactionsList.size(); i++) {
 
                                 System.out.print(allTransactionsList.get(i).getDate() + " | " + allTransactionsList.get(i).getTime()
@@ -261,13 +263,14 @@ public class AccountingLedgerApp {
                             System.out.println("                    ALL DEPOSITS");
                             System.out.println("    Date   |   Time   | Description | Vendor | Amount ");
 
-                            // Sorts it by desc order before displaying
+                            // Sorts date by desc order before displaying
                             Collections.sort(deposits, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
 
                                     return o2.getDate().compareTo(o1.getDate());
                                 }
                             });
+
                             for (int i = 0; i < deposits.size(); i++) {
 
                                 System.out.print(deposits.get(i).getDate() + " | " + deposits.get(i).getTime()
@@ -303,6 +306,7 @@ public class AccountingLedgerApp {
                                     return o2.getDate().compareTo(o1.getDate());
                                 }
                             });
+
                             for (int i = 0; i < debits.size(); i++) {
                                 System.out.print(debits.get(i).getDate() + " | " + debits.get(i).getTime()
                                         + " | " + debits.get(i).getDescription() + " | " + debits.get(i).getVendor() + " | ");
@@ -337,7 +341,7 @@ public class AccountingLedgerApp {
                                 System.out.println("                 MONTH TO DATE REPORT");
                                 System.out.println("    Date   |   Time   | Description | Vendor | Amount");
 
-                                // Sorts it by desc order before displaying
+                                // Sorts date by desc order before displaying
                                 Collections.sort(debits, new Comparator<LedgerTransact>() {
                                     public int compare(LedgerTransact o1, LedgerTransact o2) {
 
@@ -376,7 +380,7 @@ public class AccountingLedgerApp {
                                 System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 for (LedgerTransact previousmnthTransact : allTransactionsList) {
 
-                                   // Sorting the array
+                                    // Sorts date by desc order
 
 
                                     // Creating local date variables so that I can grab information from previous months
@@ -402,12 +406,15 @@ public class AccountingLedgerApp {
                             } else if (reportInput.equals("3")) {
                                 System.out.println("                 YEAR TO DATE REPORT");
                                 System.out.println("    Date   |   Time   | Description | Vendor | Amount");
+
+                                // Sorts date by desc order
                                 Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
                                     public int compare(LedgerTransact o1, LedgerTransact o2) {
 
                                         return o2.getDate().compareTo(o1.getDate());
                                     }
                                 });
+
 
                                 // For loop to access previous year entries
                                 for (LedgerTransact prevyearTransact : allTransactionsList) {
@@ -434,11 +441,14 @@ public class AccountingLedgerApp {
                                 System.out.println("                 PREVIOUS YEAR REPORT");
                                 System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+
+                                    //sorts the date by desc order
                                     public int compare(LedgerTransact o1, LedgerTransact o2) {
 
                                         return o2.getDate().compareTo(o1.getDate());
                                     }
                                 });
+
 
                                 for (LedgerTransact previousmnthTransact : allTransactionsList) {
 
@@ -470,8 +480,16 @@ public class AccountingLedgerApp {
                                     System.out.println("Search a Vendor: ");
                                     String vendorSearch = myScanner.nextLine();
 
+                                    // Sorts date by desc order
+                                    Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
+                                        public int compare(LedgerTransact o1, LedgerTransact o2) {
 
-                                    // Read user input and compare to vendor -- not working yet
+                                            return o2.getDate().compareTo(o1.getDate());
+                                        }
+                                    });
+
+
+                                    // Read user input and compare to vendor
                                     for (LedgerTransact searchVendor : allTransactionsList) {
                                         if (searchVendor.getVendor().equals(vendorSearch)) {
 
@@ -486,19 +504,10 @@ public class AccountingLedgerApp {
                                         }
 
 
-
-
-
                                     }
 
 
-
-
-
-
                                 }
-
-
 
                             } else if (reportInput.equals("0")) {
                                 break;
@@ -553,5 +562,6 @@ public class AccountingLedgerApp {
     // This method returns to the homescreen by making the homescreen variable true
     private static void homescreen() {
     }
+
 
 }
