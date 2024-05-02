@@ -144,7 +144,7 @@ public class AccountingLedgerApp {
                 boolean paymentScreen = true;
 
                 while (paymentScreen) {
-                    
+
                     Scanner debitScanner = new Scanner(System.in);
                     System.out.println("Enter the transaction description: ");
                     String transactionDescrInput = debitScanner.nextLine();
