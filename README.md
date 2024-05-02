@@ -1,4 +1,4 @@
-# Accounting Ledger App
+               # Accounting Ledger App
 This app is designed to keep track of a user's transactions and records the information to a ledger.
 ![Ledger Home](src/main/resources/LedgerHome.png)
 From the home screen, the user can select an option to view the ledger, add a deposit, or payment.
@@ -35,11 +35,13 @@ Reveals all entries from the year before
 ![Search Vendor](src/main/resources/SearchVendor.png)
 Allows user to search for all entries of a specific vendor
 
-### Interesting Piece of Code
+          ### Interesting Piece of Code
 
-'if (input.equalsIgnoreCase("R")) {
+`if (input.equalsIgnoreCase("R")) {
 break;
 // Interesting piece of code
 // Because the if and else statements are also identical
 } else {
-break; }'
+break; }`
+
+I used this statement for some screens to allow the user to go back with any key instead of 0 or R
