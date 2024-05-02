@@ -10,7 +10,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 - [Reports Screen] (#Reports)
 - [Summary] (#Project)
 
-<a id="Home"></a>
+<a name="Home"></a>
 ### Home
 ![Ledger Home](src/main/resources/LedgerHome.png)
 > *From the home screen, the user can select an option to view the ledger, add a deposit, or payment.*
@@ -18,7 +18,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 
 
-<a id="Ledger"></a>
+<a name="Ledger"></a>
 ## Ledger
 ![Ledger Screen](src/main/resources/LedgerScreen.png)
 > *The ledger screen allows for the user to view all transactions, only payments, only deposits, or check reports for the ledger.*
@@ -35,7 +35,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 
 
-<a id="Reports"></a>
+<a name="Reports"></a>
 ## Reports
 ![Display Report Screen](src/main/resources/ReportScreen.png)
 > *This screen allows for the user to generate a report or search for transactions from a specific vendor*
@@ -58,14 +58,13 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 
 
-<a id="Project"></a>
+<a name="Project"></a>
 ## Project Summary
 
 :bulb: **Interesting Piece of Code:** The all-exit loop.
+
 `if (input.equalsIgnoreCase("R")) {
 break;
-// Interesting piece of code
-// Because the if and else statements are also identical
 } else {
 break; }`
 > *I used this statement for some screens to allow the user to go back with any key instead of 0 or R*
