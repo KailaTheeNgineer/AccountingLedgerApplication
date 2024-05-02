@@ -470,8 +470,9 @@ public class AccountingLedgerApp {
 
                             } else if (reportInput.equals("5")) {
                                 // while loop to exit vendor search screen
-                                boolean VendorSearch = true;
-                                while (VendorSearch) { // Asking user for the vendor they want to search
+                                boolean VendorSearchScreen = true;
+                                while (VendorSearchScreen) { // Asking user for the vendor they want to search
+                                    System.out.println("Enter 0 to go back");
                                     System.out.println("Search a Vendor: ");
                                     String vendorSearch = myScanner.nextLine();
 
@@ -484,7 +485,13 @@ public class AccountingLedgerApp {
                                                 + " | " + searchVendor.getDescription() + " | " + searchVendor.getVendor() + " | ");
                                         System.out.printf("$%.2f\n", searchVendor.getAmount());
 
-                                    }
+                                    } if (vendorSearch.equals("0")) {
+                                        VendorSearchScreen = false;
+
+
+                                        }
+
+
 
 
 
