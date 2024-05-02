@@ -349,37 +349,28 @@ public class AccountingLedgerApp {
 
                             // Month to date screen
                             if (reportInput.equals("1")) {
+                                System.out.println("                 MONTH TO DATE REPORT");
+                                System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 // For loop to access month-date entries
                                 for (LedgerTransact monthTransact : allTransactionsList) {
 
-                                    // Creating local date variables so that I can grab information from specific months
+                                    // Sorting the array
 
-                                    LocalDate transactionDate = LocalDate.parse(monthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+                                    // Creating local date variables so that I can grab information from previous months
+                                    LocalDate transactionMonth = LocalDate.parse(monthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                                     LocalDate nowDate = LocalDate.now();
 
-                                    // look through comparison to bring up current month's values
-                                    if (transactionDate.getMonthValue() == nowDate.getMonthValue()) {
 
-                                        // Sorts it by desc order before displaying
-                                        Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
-                                            public int compare(LedgerTransact o1, LedgerTransact o2) {
+                                    // look through comparison to bring up current month's values, subtracting 1 to get previous month
+                                    if (transactionMonth.getMonthValue() == (nowDate.getMonthValue() - 1)) {
 
-                                                return o2.getDate().compareTo(o1.getDate());
-                                            }
-                                        });
 
                                         System.out.print(monthTransact.getDate() + " | " + monthTransact.getTime()
                                                 + " | " + monthTransact.getDescription() + " | " + monthTransact.getVendor() + " | ");
                                         System.out.printf("$%.2f\n", monthTransact.getAmount());
-                                        // Statement to exit loop back to report screen
-                                        System.out.println("Enter any key to go back");
-                                        Scanner mouse = new Scanner(System.in);
-                                        String finishedInput = mouse.nextLine();
-                                        if (finishedInput.equalsIgnoreCase("R")) {
-                                            break;
-                                        } else {
-                                            break;
-                                        }
+
+
 
                                     }
 
@@ -387,11 +378,14 @@ public class AccountingLedgerApp {
 
                                 // Previous month screen
                             } else if (reportInput.equals("2")) {
-
+                                System.out.println("                 PREVIOUS MONTH REPORT");
+                                System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 for (LedgerTransact previousmnthTransact : allTransactionsList) {
 
-                                    // Creating local date variables so that I can grab information from previous months
+                                   // Sorting the array
 
+
+                                    // Creating local date variables so that I can grab information from previous months
                                     LocalDate transactionMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
                                     LocalDate nowDate = LocalDate.now();
 
@@ -399,28 +393,21 @@ public class AccountingLedgerApp {
                                     // look through comparison to bring up current month's values, subtracting 1 to get previous month
                                     if (transactionMonth.getMonthValue() == (nowDate.getMonthValue() - 1)) {
 
+
                                         System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
                                                 + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
                                         System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
 
                                     }
-                                    }
-
-                                    // Statement to exit loop back to report screen
-                                    System.out.println("Enter any key to go back");
-                                    Scanner mouse = new Scanner(System.in);
-                                    String finishedInput = mouse.nextLine();
-                                    if (finishedInput.equalsIgnoreCase("R")) {
-                                        break;
-                                    } else {
-                                        break;
-                                    }
 
 
 
+                            }
 
                                     // Year to Date Screen
                             } else if (reportInput.equals("3")) {
+                                System.out.println("                 YEAR TO DATE REPORT");
+                                System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
                                     public int compare(LedgerTransact o1, LedgerTransact o2) {
 
@@ -446,18 +433,12 @@ public class AccountingLedgerApp {
 
                                     }
                                 }
-                                // Statement to exit loop back to report screen
-                                System.out.println("Enter any key to go back");
-                                Scanner mouse = new Scanner(System.in);
-                                String finishedInput = mouse.nextLine();
-                                if (finishedInput.equalsIgnoreCase("R")) {
-                                    break;
-                                } else {
-                                    break;
-                                }
+
 
                                 // Previous year Screen
                             } else if (reportInput.equals("4")) {
+                                System.out.println("                 PREVIOUS YEAR REPORT");
+                                System.out.println("    Date   |   Time   | Description | Vendor | Amount");
                                 Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
                                     public int compare(LedgerTransact o1, LedgerTransact o2) {
 
@@ -467,30 +448,24 @@ public class AccountingLedgerApp {
 
                                 for (LedgerTransact previousmnthTransact : allTransactionsList) {
 
-                                // Creating local date variables so that I can grab information from previous months
+                                    // Creating local date variables so that I can grab information from previous months
 
-                                LocalDate transactionMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                                LocalDate nowDate = LocalDate.now();
+                                    LocalDate transactionMonth = LocalDate.parse(previousmnthTransact.getDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                                    LocalDate nowDate = LocalDate.now();
 
 
-                                // look through comparison to bring up current month's values, subtracting 1 to get previous month
-                                if (transactionMonth.getYear() == (nowDate.getYear() - 1)) {
+                                    // look through comparison to bring up current month's values, subtracting 1 to get previous month
+                                    if (transactionMonth.getYear() == (nowDate.getYear() - 1)) {
 
-                                    System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
-                                            + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
-                                    System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
+                                        System.out.print(previousmnthTransact.getDate() + " | " + previousmnthTransact.getTime()
+                                                + " | " + previousmnthTransact.getDescription() + " | " + previousmnthTransact.getVendor() + " | ");
+                                        System.out.printf("$%.2f\n", previousmnthTransact.getAmount());
 
-                                }
+                                    }
+
+
                             }
-                                // Statement to exit loop back to report screen
-                                System.out.println("Enter any key to go back");
-                                Scanner mouse = new Scanner(System.in);
-                                String finishedInput = mouse.nextLine();
-                                if (finishedInput.equalsIgnoreCase("R")) {
-                                    break;
-                                } else {
-                                    break;
-                                }
+
 
 
                             } else if (reportInput.equals("5")) {
