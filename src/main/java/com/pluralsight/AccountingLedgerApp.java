@@ -76,77 +76,65 @@ public class AccountingLedgerApp {
                 boolean depositScreen = true;
                 while (depositScreen) {
 
-                    System.out.println("Enter (R) to return Home\n");
+
                     Scanner depositScanner = new Scanner(System.in);
-                    System.out.println("Enter your deposit information in the following format:\n" +
-                            "[Description] | Vendor | Amount");
-                    String input4Deposit = depositScanner.nextLine();
-
-                    // if statement for user to go back home
-                    if (input4Deposit.equalsIgnoreCase("R")) {
-                        break;
-                    } else if (input4Deposit.contains("|")) {
-                        try {
-                            // Allowing for system to write to a file and append is saving the info instead of overwriting for transactions.csv
-                            FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
-                            BufferedWriter depoWriter = new BufferedWriter(depoWrite);
+                    System.out.println("Enter the transaction description: ");
+                    String transDescrInput = depositScanner.nextLine();
+                    System.out.println("Enter the vendor name: ");
+                    String venInput = depositScanner.nextLine();
+                    System.out.println("Enter Amount: ");
+                    double depositInput = depositScanner.nextDouble();
 
 
-                            // Allowing for the date and time of the entry to be entered
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                            DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("HH:mm:ss");
-                            String datestamp22 = LocalDateTime.now().format(formatter);
-                            String timestamp22 = LocalDateTime.now().format(formatter33);
+                    try {
+                        // Allowing for system to write to a file and append is saving the info instead of overwriting for transactions.csv
+                        FileWriter depoWrite = new FileWriter("src/main/resources/transactions.csv", true);
+                        BufferedWriter depoWriter = new BufferedWriter(depoWrite);
 
 
-                            // New entry for deposits if a valid entry with | is used for transactions.csv
-                            depoWriter.write(datestamp22 + " | " + timestamp22 + " | " + input4Deposit);
-                            depoWriter.newLine();
-                            depoWriter.close();
-
-                            // Parsing information in input4deposit to add to object
-                            String[] splitdeposit = input4Deposit.split("\\|");
-                            String description = splitdeposit[0];
-                            String vendor = splitdeposit[1];
-                            double amount = Double.parseDouble(splitdeposit[2]);
-
-                            // Creating an object out of the new information
-                            LedgerTransact inputDeposit = new LedgerTransact(datestamp22, timestamp22, description, vendor, amount);
-
-                            // Adding the object to the deposit array
-                            deposits.add(inputDeposit);
-                            // Adding it to allTransactions array
-                            allTransactionsList.add(inputDeposit);
+                        // Allowing for the date and time of the entry to be entered
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                        DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        String datestamp22 = LocalDateTime.now().format(formatter);
+                        String timestamp22 = LocalDateTime.now().format(formatter33);
 
 
-                            System.out.println("\n\n\nSuccessfully Added Deposit Information!");
-                            System.out.println("(R) Return Home\n(D) Enter another Deposit");
+                        // New entry for deposits if a valid entry with | is used for transactions.csv
+                        depoWriter.write(datestamp22 + " | " + timestamp22 + " | " + transDescrInput + " | " +
+                                " | " + venInput + " | " + depositInput);
+                        depoWriter.newLine();
+                        depoWriter.close();
 
-                            Scanner mouse1 = new Scanner(System.in);
-                            String afterDeposit = mouse1.nextLine();
 
-                            if (afterDeposit.equalsIgnoreCase("R")) {
+                        // Creating an object out of the new information
+                        LedgerTransact inputDeposit = new LedgerTransact(datestamp22, timestamp22, transDescrInput, venInput, depositInput);
 
-                                // Breaks out of loop to home screen
-                                break;
+                        // Adding the object to the deposit array
+                        deposits.add(inputDeposit);
+                        // Adding it to allTransactions array
+                        allTransactionsList.add(inputDeposit);
 
-                            } else if (afterDeposit.equalsIgnoreCase("D")) {
 
-                                // Allows user to input another debit entry
-                                depositScreen = true;
-                            }
+                        System.out.println("\n\n\nTransaction Completed. Thank You!");
+                        System.out.println("(R) Return Home\n(D) Enter another Deposit");
 
-                        } catch (IOException e) {
+                        Scanner mouse1 = new Scanner(System.in);
+                        String afterDeposit = mouse1.nextLine();
 
-                            e.printStackTrace();
+                        if (afterDeposit.equalsIgnoreCase("R")) {
+
+                            // Breaks out of loop to home screen
+                            break;
+
+                        } else if (afterDeposit.equalsIgnoreCase("D")) {
+
+                            // Allows user to input another debit entry
+                            depositScreen = true;
                         }
 
-                    }
-                    // Statement to try again if invalid input is entered
-                    else {
+                    } catch (IOException e) {
 
-                        System.out.println("Please Select A Valid Option");
-                        depositScreen = true;
+                        e.printStackTrace();
                     }
 
                 }
@@ -156,76 +144,63 @@ public class AccountingLedgerApp {
                 boolean paymentScreen = true;
 
                 while (paymentScreen) {
-                    System.out.println("Enter (R) to return Home\n");
+                    
                     Scanner debitScanner = new Scanner(System.in);
-                    System.out.println("Enter your Debit information in the following format:\n" +
-                            "[Description] | Vendor | -Amount");
-                    String input4Debit = debitScanner.nextLine();
-
-                    // if statement for user to go back home from debit screen
-                    if (input4Debit.equalsIgnoreCase("R")) {
-                        break;
-
-                    } else if (input4Debit.contains("|")) {
-                        try {
-                            // Allowing for system to write to a file and append is saving the info instead of overwrite for transactions.csv
-                            FileWriter debitWrite = new FileWriter("src/main/resources/transactions.csv", true);
-                            BufferedWriter debitWriter = new BufferedWriter(debitWrite);
-
-                            // Allowing for the date and time of the entry to be entered
-                            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                            DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("HH:mm:ss");
-                            String datestamp2 = LocalDateTime.now().format(formatter2);
-                            String timestamp2 = LocalDateTime.now().format(formatter3);
+                    System.out.println("Enter the transaction description: ");
+                    String transactionDescrInput = debitScanner.nextLine();
+                    System.out.println("Enter the vendor name: ");
+                    String vendorInput = debitScanner.nextLine();
+                    System.out.println("Enter Amount: ");
+                    double debitInput = debitScanner.nextDouble();
 
 
-                            // New entry for deposits if a valid entry with | is used for transactions.csv
-                            debitWriter.write(datestamp2 + " | " + timestamp2 + " | " + input4Debit);
-                            debitWriter.newLine();
-                            debitWriter.close();
+                    try {
+                        // Allowing for system to write to a file and append is saving the info instead of overwrite for transactions.csv
+                        FileWriter debitWrite = new FileWriter("src/main/resources/transactions.csv", true);
+                        BufferedWriter debitWriter = new BufferedWriter(debitWrite);
 
-                            // Parsing information in input4debit to add to object
-                            String[] splitdebit = input4Debit.split("\\|");
-                            String description = splitdebit[0];
-                            String vendor = splitdebit[1];
-                            double amount = Double.parseDouble(splitdebit[2]);
-
-                            // Creating an object out of the new information
-                            LedgerTransact inputDebit = new LedgerTransact(datestamp2, timestamp2, description, vendor, amount);
-
-                            // Adding the object to the debit array
-                            deposits.add(inputDebit);
-                            // Adding it to allTransactions array
-                            allTransactionsList.add(inputDebit);
+                        // Allowing for the date and time of the entry to be entered
+                        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("HH:mm:ss");
+                        String datestamp2 = LocalDateTime.now().format(formatter2);
+                        String timestamp2 = LocalDateTime.now().format(formatter3);
 
 
-                            System.out.println("\n\n\nSuccessfully Recorded Debit Information!");
-                            System.out.println("(R) Return Home\n(P) Enter another Debit entry");
-                            Scanner mouse = new Scanner(System.in);
-                            String afterDebit = mouse.nextLine();
+                        // New entry for deposits if a valid entry with | is used for transactions.csv
+                        debitWriter.write(datestamp2 + " | " + timestamp2 + " | " + transactionDescrInput +
+                                " | " + vendorInput + " | " + debitInput);
+                        debitWriter.newLine();
+                        debitWriter.close();
 
-                            if (afterDebit.equalsIgnoreCase("R")) {
 
-                                // Breaks out of successful debit entry back to home screen
-                                break;
+                        // Creating an object out of the new information
+                        LedgerTransact inputDebit = new LedgerTransact(datestamp2, timestamp2, transactionDescrInput, vendorInput, debitInput);
 
-                            } else if (afterDebit.equalsIgnoreCase("P")) {
+                        // Adding the object to the debit array
+                        deposits.add(inputDebit);
+                        // Adding it to allTransactions array
+                        allTransactionsList.add(inputDebit);
 
-                                // Allows user to input another debit entry
-                                paymentScreen = true;
-                            }
 
-                        } catch (IOException e) {
+                        System.out.println("\n\n\nTransaction Completed. Thank You!");
+                        System.out.println("(R) Return Home\n(P) Enter another Debit entry");
+                        Scanner mouse = new Scanner(System.in);
+                        String afterDebit = mouse.nextLine();
 
-                            e.printStackTrace();
+                        if (afterDebit.equalsIgnoreCase("R")) {
+
+                            // Breaks out of successful debit entry back to home screen
+                            break;
+
+                        } else if (afterDebit.equalsIgnoreCase("P")) {
+
+                            // Allows user to input another debit entry
+                            paymentScreen = true;
                         }
 
-                    }
-                    // Ending statement to try again when invalid input on debit info is entered
-                    else {
+                    } catch (IOException e) {
 
-                        System.out.println("Please Select A Valid Option");
-                        paymentScreen = true;
+                        e.printStackTrace();
                     }
 
 
