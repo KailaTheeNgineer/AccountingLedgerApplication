@@ -469,9 +469,34 @@ public class AccountingLedgerApp {
 
 
                             } else if (reportInput.equals("5")) {
-                                /* compare user input with if statment after parsing alltransactions array lists
+                                // while loop to exit vendor search screen
+                                boolean VendorSearch = true;
+                                while (VendorSearch) { // Asking user for the vendor they want to search
+                                    System.out.println("Search a Vendor: ");
+                                    String vendorSearch = myScanner.nextLine();
 
-                                 */
+
+                                    // Read user input and compare to vendor -- not working yet
+                                    for (LedgerTransact searchVendor : allTransactionsList) {
+                                        if (searchVendor.getVendor().equals(vendorSearch)) {
+
+                                        System.out.print(searchVendor.getDate() + " | " + searchVendor.getTime()
+                                                + " | " + searchVendor.getDescription() + " | " + searchVendor.getVendor() + " | ");
+                                        System.out.printf("$%.2f\n", searchVendor.getAmount());
+
+                                    }
+
+
+
+                                    }
+
+
+
+
+
+
+                                }
+
 
 
                             } else if (reportInput.equals("0")) {
