@@ -15,7 +15,7 @@ public class AccountingLedgerApp {
         // Creating pre-saved object info for deposits only
         LedgerTransact id1 = new LedgerTransact("2024/04/28", "04:34:54", "Youtube", "Adsense", 2500);
         LedgerTransact id2 = new LedgerTransact("2024/04/28", "04:35:35", "Gas money", "Cashapp", 150);
-        LedgerTransact id6 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
+        LedgerTransact id6 = new LedgerTransact("2024/05/02", "06:35:35", "Youtube", "Adsense", 3000);
         LedgerTransact id8 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
         // Adding the objects to the deposits array
         deposits.add(id1);
@@ -29,7 +29,7 @@ public class AccountingLedgerApp {
         LedgerTransact id4 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
         LedgerTransact id5 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
         LedgerTransact id7 = new LedgerTransact("2023/02/31", "16:34:12", "Classic Handbag", "Chanel", -567.89);
-        LedgerTransact id9 = new LedgerTransact("2024/05/02", "07:02:33", "Lipgloss", "Fenty", -20.43);
+        LedgerTransact id9 = new LedgerTransact("2024/05/01", "07:02:33", "Lipgloss", "Fenty", -20.43);
         debits.add(id3);
         debits.add(id4);
         debits.add(id5);
@@ -44,10 +44,10 @@ public class AccountingLedgerApp {
         LedgerTransact id33 = new LedgerTransact("2024/04/28", "04:35:54", "iPhone 15", "Apple", -876.98);
         LedgerTransact id44 = new LedgerTransact("2024/04/17", "04:36:18", "Food for Thought", "Amazon", -7.77);
         LedgerTransact id55 = new LedgerTransact("2024/03/21", "04:36:18", "Noble Crust", "Doordash", -69.72);
-        LedgerTransact id66 = new LedgerTransact("2024/05/01", "06:35:35", "Youtube", "Adsense", 3000);
+        LedgerTransact id66 = new LedgerTransact("2024/05/02", "06:35:35", "Youtube", "Adsense", 3000);
         LedgerTransact id77 = new LedgerTransact("2023/02/31", "16:34:12", "Classic Handbag", "Chanel", -567.89);
         LedgerTransact id88 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
-        LedgerTransact id99 = new LedgerTransact("2024/05/02", "07:02:33", "Lipgloss", "Fenty", -20.43);
+        LedgerTransact id99 = new LedgerTransact("2024/05/01", "07:02:33", "Lipgloss", "Fenty", -20.43);
         // Adding the objects to the allTransactions array
         allTransactionsList.add(id11);
         allTransactionsList.add(id22);
@@ -223,6 +223,9 @@ public class AccountingLedgerApp {
                         boolean runAllEntries = true;
                         while (runAllEntries) {
 
+                            System.out.println("                    ALL ENTRIES");
+                            System.out.println("    Date   |   Time   | Description | Vendor | Amount ");
+
                             // Sorts it by desc order before displaying
                             Collections.sort(allTransactionsList, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
@@ -255,6 +258,9 @@ public class AccountingLedgerApp {
                         boolean allDepositEntries = true;
                         while (allDepositEntries) {
 
+                            System.out.println("                    ALL DEPOSITS");
+                            System.out.println("    Date   |   Time   | Description | Vendor | Amount ");
+
                             // Sorts it by desc order before displaying
                             Collections.sort(deposits, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
@@ -286,6 +292,10 @@ public class AccountingLedgerApp {
                         boolean debitScreen = true;
                         // While statement to exit out of debit screen
                         while (debitScreen) {
+
+                            System.out.println("                    ALL PAYMENTS");
+                            System.out.println("    Date   |   Time   | Description | Vendor | Amount ");
+
                             // Sorts it by desc order before displaying
                             Collections.sort(debits, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
@@ -326,6 +336,15 @@ public class AccountingLedgerApp {
                             if (reportInput.equals("1")) {
                                 System.out.println("                 MONTH TO DATE REPORT");
                                 System.out.println("    Date   |   Time   | Description | Vendor | Amount");
+
+                                // Sorts it by desc order before displaying
+                                Collections.sort(debits, new Comparator<LedgerTransact>() {
+                                    public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                        return o2.getDate().compareTo(o1.getDate());
+                                    }
+                                });
+
                                 // For loop to access month-date entries
                                 for (LedgerTransact monthTransact : allTransactionsList) {
 
@@ -338,7 +357,7 @@ public class AccountingLedgerApp {
 
 
                                     // look through comparison to bring up current month's values, subtracting 1 to get previous month
-                                    if (transactionMonth.getMonthValue() == (nowDate.getMonthValue() - 1)) {
+                                    if (transactionMonth.getMonthValue() == (nowDate.getMonthValue())) {
 
 
                                         System.out.print(monthTransact.getDate() + " | " + monthTransact.getTime()
