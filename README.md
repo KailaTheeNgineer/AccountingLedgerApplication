@@ -1,6 +1,10 @@
 # Accounting Ledger App
-This app is designed to keep track of a user's transactions and records the information to a ledger. 
-The user can enter transactions that will be stored in a ledger that can be used to generate reports to grab specific information.
+<div style="text-align: center;"> This app is designed to keep track of a user's transactions and records the information. 
+After the user enters a transaction, it will be stored in a ledger. Through the `Ledger` screen, 
+user has access to screens that reveal data on all Transactions, only payments, and only deposits.
+In the `Reports` screen, Users can view monthly or annual reports or search for transactions from a specific vendor.</div>
+
+## Home Screen
 ![Ledger Home](src/main/resources/LedgerHome.png)
 *From the home screen, the user can select an option to view the ledger, add a deposit, or payment.*
 
