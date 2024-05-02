@@ -49,9 +49,9 @@ public class AccountingLedgerApp {
         LedgerTransact id88 = new LedgerTransact("2023/07/07", "22:03:11", "Payroll", "Sephora", 543.76);
         LedgerTransact id99 = new LedgerTransact("2024/05/01", "07:02:33", "Lipgloss", "Fenty", -20.43);
         // Adding the objects to the allTransactions array
-        allTransactionsList.add(id11);
-        allTransactionsList.add(id22);
         allTransactionsList.add(id33);
+        allTransactionsList.add(id22);
+        allTransactionsList.add(id11);
         allTransactionsList.add(id44);
         allTransactionsList.add(id55);
         allTransactionsList.add(id66);
@@ -235,6 +235,7 @@ public class AccountingLedgerApp {
                                 }
                             });
 
+
                             for (int i = 0; i < allTransactionsList.size(); i++) {
 
                                 System.out.print(allTransactionsList.get(i).getDate() + " | " + allTransactionsList.get(i).getTime()
@@ -267,9 +268,24 @@ public class AccountingLedgerApp {
                             Collections.sort(deposits, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
 
+
                                     return o2.getDate().compareTo(o1.getDate());
+
+
+                                }
+
+
+                            });
+                            // Sorting by time desc order
+                            Collections.sort(deposits, new Comparator<LedgerTransact>() {
+                                public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+
+                                    return o2.getTime().compareTo(o1.getTime());
+
                                 }
                             });
+
 
                             for (int i = 0; i < deposits.size(); i++) {
 
@@ -299,11 +315,19 @@ public class AccountingLedgerApp {
                             System.out.println("                    ALL PAYMENTS");
                             System.out.println("    Date   |   Time   | Description | Vendor | Amount ");
 
-                            // Sorts it by desc order before displaying
+                            // Sorts date by desc order before displaying
                             Collections.sort(debits, new Comparator<LedgerTransact>() {
                                 public int compare(LedgerTransact o1, LedgerTransact o2) {
 
                                     return o2.getDate().compareTo(o1.getDate());
+                                }
+                            });
+
+                            // Sorts time by desc order before displaying
+                            Collections.sort(debits, new Comparator<LedgerTransact>() {
+                                public int compare(LedgerTransact o1, LedgerTransact o2) {
+
+                                    return o2.getTime().compareTo(o1.getTime());
                                 }
                             });
 
