@@ -513,6 +513,7 @@ public class AccountingLedgerApp {
                                     });
 
 
+
                                     // Read user input and compare to vendor
                                     for (LedgerTransact searchVendor : allTransactionsList) {
                                         if (searchVendor.getVendor().equals(vendorSearch)) {

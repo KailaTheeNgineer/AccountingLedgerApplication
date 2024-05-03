@@ -52,6 +52,16 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 > *Allows user to search for all entries of a specific vendor*
 
 
+### User Input
+![Deposit Input](src/main/resources/DEPOSITINPUT.png)
+> *User input of a deposit*
+![Payment Input](src/main/resources/PAYMENTINPUT.png)
+> > *User input of a payment*
+![LEDGER ENTRIES](src/main/resources/LEDGER.png)
+> > *User input adds to the ledger*
+
+
+
 
 
 
