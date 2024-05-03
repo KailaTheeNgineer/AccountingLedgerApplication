@@ -52,7 +52,7 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 > *Allows user to search for all entries of a specific vendor*
 
 
-### User Input
+### User Input Example
 ![Deposit Input](src/main/resources/DEPOSITINPUT.png)
 > *User input of a deposit*
 ![Payment Input](src/main/resources/PAYMENTINPUT.png)
