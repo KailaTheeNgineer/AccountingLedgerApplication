@@ -17,16 +17,16 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Ledger
 ![Ledger Screen](src/main/resources/LedgerScreen.png)
-> *The ledger screen allows for user to view all transactions, only payments, only deposits, or check reports for the ledger.*
+>> *The ledger screen allows for user to view all transactions, only payments, only deposits, or check reports for the ledger.*
 
 ![Display All Entries](src/main/resources/DisplayAllEntriesScreen.png)
-> *The display for all entries reveals all the transactions that have been successfully completed.*
+>> *The display for all entries reveals all the transactions that have been successfully completed.*
 
 ![Display Only Deposits](src/main/resources/AllDepositsScreen.png)
-> *This screen reveals only the deposits made in the account.*
+>> *This screen reveals only the deposits made in the account.*
 
 ![Display Only Payments](src/main/resources/AllPaymentScreen.png)
-> *This screen reveals only the payments made in the account.*
+>> *This screen reveals only the payments made in the account.*
 
 
 
@@ -34,33 +34,33 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 ### Reports
 ![Display Report Screen](src/main/resources/ReportScreen.png)
-> *This screen allows for user to generate a report or search for transactions from a specific vendor*
+>> *This screen allows for user to generate a report or search for transactions from a specific vendor*
 
 ![Month to Date](src/main/resources/MonthtoDateReport.png)
-> *Reveals the entries up to date with the current month*
+>> *Reveals the entries up to date with the current month*
 
 ![Previous Month](src/main/resources/PrevmonthReport.png)
-> *Reveals all entries from the previous month*
+>> *Reveals all entries from the previous month*
 
 ![Year to Date](src/main/resources/YeartoDateReport.png)
-> *Reveals all entries for the current year*
+>> *Reveals all entries for the current year*
 
 ![Previous Year](src/main/resources/PreviousYearReport.png)
-> *Reveals all entries from the year before*
+>> *Reveals all entries from the year before*
 
 ![Search Vendor](src/main/resources/SearchVendor.png)
-> *Allows user to search for all entries of a specific vendor*
+>> *Allows user to search for all entries of a specific vendor*
 
 
 ### User Input Example
 ![Deposit Input](src/main/resources/DEPOSITINPUT.png)
-> *User input of a deposit*
+>> *User input of a deposit*
 
 ![Payment Input](src/main/resources/PAYMENTINPUT.png)
-> *User input of a payment*
+>> *User input of a payment*
 
 ![LEDGER ENTRIES](src/main/resources/LEDGER.png)
-> *User input adds to the ledger*
+>> *User input adds to the ledger*
 
 
 
@@ -72,8 +72,8 @@ In the `Reports` screen, Users can view monthly or annual reports or search for 
 
 :bulb: **Interesting Piece of Code:** The *all-exit* loop.
 
-`if (input.equalsIgnoreCase("R")) {
+>> `if (input.equalsIgnoreCase("R")) {
 break;
 } else {
 break; }`
-> *Used this statement for some screens to allow the user to go back with any key instead of 0 or R*
+>> *Used this statement for some screens to allow the user to go back with any key instead of 0 or R*
